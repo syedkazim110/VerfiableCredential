@@ -194,63 +194,120 @@ const Page = () => {
 
   return (
     <div>
-      <h2>Issue, Verify, and Revoke Credentials</h2>
-      
-      {/* Subject and Credential Details Form */}
-      <div>
-        <input
-          type="text"
-          placeholder="Subject Address"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Credential Details"
-          value={credentialDetails}
-          onChange={(e) => setCredentialDetails(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Expiration Period (seconds)"
-          value={expirationPeriod}
-          onChange={(e) => setExpirationPeriod(e.target.value)}
-        />
-        <p>Generated Credential Hash: {credentialHash}</p>
-        <button onClick={handleIssueCredential}>Issue Credential</button>
-      </div>
+  <style>
+    {`
+      div {
+        font-family: Arial, sans-serif;
+        margin: 0 auto;
+        max-width: 600px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      input {
+        display: block;
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 1rem;
+        color: white;
+        background: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      p {
+        margin: 10px 0;
+        color: #555;
+      }
+      .section {
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    `}
+  </style>
+  <h2>Issue, Verify, and Revoke Credentials</h2>
+  
+  {/* Subject and Credential Details Form */}
+  <div className="section">
+    <input
+      type="text"
+      placeholder="Subject Address"
+      value={subject}
+      onChange={(e) => setSubject(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Credential Details"
+      value={credentialDetails}
+      onChange={(e) => setCredentialDetails(e.target.value)}
+    />
+    <input
+      type="number"
+      placeholder="Expiration Period (seconds)"
+      value={expirationPeriod}
+      onChange={(e) => setExpirationPeriod(e.target.value)}
+    />
+    <p>Generated Credential Hash: {credentialHash}</p>
+    <button onClick={handleIssueCredential}>Issue Credential</button>
+    
+  </div>
+  {/* Verify Credential */}
+  <div className="section">
+    <input
+      type="text"
+      placeholder="Credential ID"
+      value={credentialId}
+      onChange={(e) => setCredentialId(e.target.value)}
+    />
+    <button onClick={handleVerifyCredential}>Verify Credential</button>
+    <p>Verification Result: {verificationResult}</p>
+  </div>
+   
+  {/* Revoke Credential */}
+  <div className="section">
+    <button onClick={handleRevokeCredential}>Revoke Credential</button>
+  </div>
 
-      {/* Verify Credential */}
-      <div>
-        <input
-          type="text"
-          placeholder="Credential ID"
-          value={credentialId}
-          onChange={(e) => setCredentialId(e.target.value)}
-        />
-        <button onClick={handleVerifyCredential}>Verify Credential</button>
-        <p>Verification Result: {verificationResult}</p>
-      </div>
+  {/* Get Credentials for Subject */}
+  <div className="section">
+    <button onClick={handleGetCredentialsForSubject}>
+      Get Credentials for Subject
+    </button>
+  </div>
 
-      {/* Revoke Credential */}
-      <div>
-        <button onClick={handleRevokeCredential}>Revoke Credential</button>
-      </div>
+  {/* Wallet Connection Status */}
+  <div className="section">
+    {isConnected ? (
+      <p>Wallet Connected: {account}</p>
+    ) : (
+      <p>Please connect your wallet.</p>
+    )}
+  </div>
+</div>
 
-      {/* Get Credentials for Subject */}
-      <div>
-        <button onClick={handleGetCredentialsForSubject}>Get Credentials for Subject</button>
-      </div>
-
-      {/* Wallet Connection Status */}
-      <div>
-        {isConnected ? (
-          <p>Wallet Connected: {account}</p>
-        ) : (
-          <p>Please connect your wallet.</p>
-        )}
-      </div>
-    </div>
   );
 };
 
